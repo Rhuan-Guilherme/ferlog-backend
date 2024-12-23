@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  fer-traclog-app:
+    image: bitnami/postgresql
+    environment:
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_DATABASE=ferlog
+    ports:
+      - 5432:5432
