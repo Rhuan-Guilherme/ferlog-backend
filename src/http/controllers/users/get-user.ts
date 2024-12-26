@@ -7,7 +7,7 @@ export async function getUser(request: FastifyRequest, reply: FastifyReply) {
     const registerUser = makeGetUser();
     const { user } = await registerUser.execute({ id: request.user.sub });
 
-    return reply.status(201).send({ ...user, password_hash: undefined });
+    return reply.status(200).send({ ...user, password_hash: undefined });
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
       return reply.status(401).send({ message: error.message });
