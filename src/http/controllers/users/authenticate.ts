@@ -1,5 +1,4 @@
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-errors';
-import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists-error';
 import { makeAuthenticateUser } from '@/use-cases/factoryes/authenticate';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
@@ -19,7 +18,7 @@ export async function authenticateUser(
     const registerUser = makeAuthenticateUser();
     const { user } = await registerUser.execute({ email, password });
 
-    const token = await reply.jwtSign({}, { sub: user.id });
+    const token = await reply.jwtSign({ role: user.role }, { sub: user.id });
 
     return reply.status(201).send({ token: token });
   } catch (error) {
