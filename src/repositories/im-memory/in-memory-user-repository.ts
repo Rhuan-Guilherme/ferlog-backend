@@ -1,8 +1,9 @@
-import { Prisma, User } from '@prisma/client';
+import { $Enums, Prisma, User } from '@prisma/client';
 import { UserRpositotyInterface } from '../user-repository-interface';
 import { randomUUID } from 'crypto';
 
 export class InMomoryUserRepository implements UserRpositotyInterface {
+  
   user: User[] = [];
   async create(data: Prisma.UserCreateInput): Promise<User> {
     const newUser = {
@@ -10,6 +11,8 @@ export class InMomoryUserRepository implements UserRpositotyInterface {
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,
+      role: $Enums.Roles.MEMBER,
+      cargo: data.cargo
     };
 
     this.user.push(newUser);
@@ -30,6 +33,16 @@ export class InMomoryUserRepository implements UserRpositotyInterface {
 
     if (!user) {
       return null;
+    }
+
+    return user;
+  }
+
+  async allUsers(): Promise<User[]> {
+    const user = this.user.filter(user => user.role === 'MEMBER')
+
+    if(!user){
+      return []
     }
 
     return user;
