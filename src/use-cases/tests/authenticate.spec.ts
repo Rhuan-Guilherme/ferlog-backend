@@ -18,6 +18,7 @@ describe('Teste para obter daddos do usuário.', () => {
       name: 'Teste',
       email: 'teste@teste.com',
       password_hash: await hash('teste123', 6),
+      cargo: 'Desenvolvedor',
     });
 
     const { user } = await sup.execute({

@@ -18,6 +18,7 @@ describe('Teste para a criação de novos usuários.', () => {
       name: 'Teste',
       email: 'teste@teste.com',
       password: 'teste123',
+      cargo: 'Desenvolvedor',
     });
 
     expect(user.id).toEqual(expect.any(String));
@@ -29,6 +30,8 @@ describe('Teste para a criação de novos usuários.', () => {
       name: 'Teste',
       email: 'teste@teste.com',
       password: 'teste123',
+      cargo: 'Desenvolvedor',
+
     });
 
     expect(() =>
@@ -36,6 +39,8 @@ describe('Teste para a criação de novos usuários.', () => {
         name: 'Teste',
         email: 'teste@teste.com',
         password: 'teste123',
+        cargo: 'Desenvolvedor',
+
       })
     ).rejects.toBeInstanceOf(UserAlreadyExistsError);
   });
@@ -44,6 +49,7 @@ describe('Teste para a criação de novos usuários.', () => {
       name: 'Teste',
       email: 'teste@teste.com',
       password: 'teste123',
+      cargo: 'Desenvolvedor',
     });
 
     const passwordIsHashed = await compare('teste123', user.password_hash);

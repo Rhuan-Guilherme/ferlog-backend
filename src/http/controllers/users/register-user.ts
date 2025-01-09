@@ -10,14 +10,17 @@ export async function registerUser(
   const userSchema = z.object({
     name: z.string(),
     email: z.string().email(),
-    password: z.string().min(6),
+    password: z.string().min(2),
+    cargo: z.string()
   });
 
-  const { email, name, password } = userSchema.parse(request.body);
+  const { email, name, password, cargo } = userSchema.parse(request.body);
+  console.log(email, name, password, cargo);
+  
 
   try {
     const registerUser = makeRegisterUser();
-    await registerUser.execute({ email, name, password });
+    await registerUser.execute({ email, name, password, cargo });
     return reply
       .status(201)
       .send({ message: 'Cadastro realizado com sucesso.' });
