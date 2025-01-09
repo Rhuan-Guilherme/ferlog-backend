@@ -11,16 +11,15 @@ export async function registerUser(
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(2),
-    cargo: z.string()
+    cargo: z.string().optional(),
+    phone: z.string().optional(),
   });
 
-  const { email, name, password, cargo } = userSchema.parse(request.body);
-  console.log(email, name, password, cargo);
-  
+  const { email, name, password, cargo, phone  } = userSchema.parse(request.body);  
 
   try {
     const registerUser = makeRegisterUser();
-    await registerUser.execute({ email, name, password, cargo });
+    await registerUser.execute({ email, name, password, cargo, phone });
     return reply
       .status(201)
       .send({ message: 'Cadastro realizado com sucesso.' });

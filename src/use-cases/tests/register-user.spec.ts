@@ -31,7 +31,6 @@ describe('Teste para a criação de novos usuários.', () => {
       email: 'teste@teste.com',
       password: 'teste123',
       cargo: 'Desenvolvedor',
-
     });
 
     expect(() =>
@@ -40,7 +39,6 @@ describe('Teste para a criação de novos usuários.', () => {
         email: 'teste@teste.com',
         password: 'teste123',
         cargo: 'Desenvolvedor',
-
       })
     ).rejects.toBeInstanceOf(UserAlreadyExistsError);
   });

@@ -7,7 +7,8 @@ interface RegisterUserRequest {
   name: string;
   email: string;
   password: string;
-  cargo: string
+  cargo?: string
+  phone?: string; 
 }
 
 interface RegisterUserResponse {
@@ -21,7 +22,8 @@ export class RegisterUserUseCase {
     email,
     name,
     password,
-    cargo
+    cargo,
+    phone,
   }: RegisterUserRequest): Promise<RegisterUserResponse> {
     const existingUser = await this.userRepository.findByEmail(email);
 
@@ -35,7 +37,8 @@ export class RegisterUserUseCase {
       email,
       name,
       password_hash: passwordHash,
-      cargo
+      cargo,
+      phone
     });
 
     return {
