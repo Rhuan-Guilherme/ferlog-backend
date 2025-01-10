@@ -10,5 +10,5 @@ export async function UserRoutes(app: FastifyInstance) {
   app.post('/user/create', registerUser);
   app.post('/user/session', authenticateUser);
   app.get('/user', { onRequest: [verifyJWT] }, getUser);
-  app.get('/user/all', { onRequest: [verifyJWT] }, getAllUser);
+  app.get('/user/all', { onRequest: [verifyJWT, roleVerify('ADMIN')] }, getAllUser);
 }
