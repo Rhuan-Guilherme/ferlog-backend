@@ -52,13 +52,12 @@ export class InMomoryUserRepository implements UserRpositotyInterface {
 
   async deleteUser(id: string): Promise<User | null> {
     const userDelete = this.user.find(user => user.id === id)
-    const userId = this.user.findIndex(user => user.id === id)
 
-    this.user.splice(userId, 1)
-
-    if(!userDelete){
+     if(!userDelete){
       return null
     }
+
+    this.user = this.user.filter(user => user.id !== id)
 
     return userDelete
   }

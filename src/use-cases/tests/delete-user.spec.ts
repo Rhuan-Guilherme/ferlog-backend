@@ -31,5 +31,6 @@ describe('Teste para deletar usuário.', () => {
     const users = await sup.execute({ id: user.id });
 
     expect(users.user.email).to.equal('teste@teste.com')
+    expect(userRepository.user).toHaveLength(1)
   });
 });
