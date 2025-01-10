@@ -18,6 +18,6 @@ export async function DeleteUser(request: FastifyRequest, reply: FastifyReply) {
 
     return reply.status(200).send({ user });
   } catch (error) {
-      return reply.status(401).send({ message: error });
+      return reply.status(500).send({ message: error });
   }
 }

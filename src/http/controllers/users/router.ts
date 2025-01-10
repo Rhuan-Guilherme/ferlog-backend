@@ -12,5 +12,5 @@ export async function UserRoutes(app: FastifyInstance) {
   app.post('/user/session', authenticateUser);
   app.get('/user', { onRequest: [verifyJWT] }, getUser);
   app.get('/user/all', { onRequest: [verifyJWT, roleVerify('ADMIN')] }, getAllUser);
-  app.delete('/user/:id', { onRequest: [verifyJWT, roleVerify('ADMIN')]}, DeleteUser)
+  app.delete('/user/:id', { onRequest: [verifyJWT, roleVerify('ADMIN')] }, DeleteUser)
 }
