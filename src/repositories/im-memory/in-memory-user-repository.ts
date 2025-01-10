@@ -3,7 +3,8 @@ import { UserRpositotyInterface } from '../user-repository-interface';
 import { randomUUID } from 'crypto';
 
 export class InMomoryUserRepository implements UserRpositotyInterface {
-  
+
+
   user: User[] = [];
   async create(data: Prisma.UserCreateInput): Promise<User> {
     const newUser = {
@@ -12,7 +13,8 @@ export class InMomoryUserRepository implements UserRpositotyInterface {
       email: data.email,
       password_hash: data.password_hash,
       role: $Enums.Roles.MEMBER,
-      cargo: data.cargo
+      cargo: data.cargo ?? null,
+      phone: data.phone ?? null
     };
 
     this.user.push(newUser);
@@ -46,5 +48,18 @@ export class InMomoryUserRepository implements UserRpositotyInterface {
     }
 
     return user;
+  }
+
+  async deleteUser(id: string): Promise<User | null> {
+    const userDelete = this.user.find(user => user.id === id)
+    const userId = this.user.findIndex(user => user.id === id)
+
+    this.user.splice(userId, 1)
+
+    if(!userDelete){
+      return null
+    }
+
+    return userDelete
   }
 }

@@ -5,4 +5,5 @@ export interface UserRpositotyInterface {
   findById(id: string): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
   allUsers(): Promise<User[]>;
+  deleteUser(id: string): Promise<User | null>;
 }
