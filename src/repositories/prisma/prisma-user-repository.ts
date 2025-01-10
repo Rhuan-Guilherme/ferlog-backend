@@ -3,6 +3,7 @@ import { UserRpositotyInterface } from '../user-repository-interface';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaUserRepository implements UserRpositotyInterface {
+  
  
   create(data: Prisma.UserCreateInput): Promise<User> {
     const user = prisma.user.create({ data });
@@ -24,5 +25,12 @@ export class PrismaUserRepository implements UserRpositotyInterface {
     const users = prisma.user.findMany({ where: {role: 'MEMBER'}})
 
     return users;
+  }
+
+  
+  deleteUser(id: string): Promise<User | null> {
+    const user = prisma.user.delete({ where: { id } });
+
+    return user;
   }
 }
