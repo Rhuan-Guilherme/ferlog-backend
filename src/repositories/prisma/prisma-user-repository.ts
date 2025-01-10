@@ -5,31 +5,31 @@ import { prisma } from '@/lib/prisma';
 export class PrismaUserRepository implements UserRpositotyInterface {
   
  
-  create(data: Prisma.UserCreateInput): Promise<User> {
-    const user = prisma.user.create({ data });
+  async create(data: Prisma.UserCreateInput): Promise<User> {
+    const user = await prisma.user.create({ data });
 
     return user;
   }
-  findById(id: string): Promise<User | null> {
-    const user = prisma.user.findUnique({ where: { id } });
+  async findById(id: string): Promise<User | null> {
+    const user = await prisma.user.findUnique({ where: { id } });
 
     return user;
   }
-  findByEmail(email: string): Promise<User | null> {
-    const user = prisma.user.findUnique({ where: { email } });
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await prisma.user.findUnique({ where: { email } });
 
     return user;
   }
 
-   allUsers(): Promise<User[]> {
-    const users = prisma.user.findMany({ where: {role: 'MEMBER'}})
+   async allUsers(): Promise<User[]> {
+    const users = await prisma.user.findMany({ where: {role: 'MEMBER'}})
 
     return users;
   }
 
   
-  deleteUser(id: string): Promise<User | null> {
-    const user = prisma.user.delete({ where: { id } });
+  async deleteUser(id: string): Promise<User | null> {
+    const user = await prisma.user.delete({ where: { id } });
 
     return user;
   }
