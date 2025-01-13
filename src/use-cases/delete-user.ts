@@ -1,6 +1,5 @@
 import { User } from '@prisma/client';
 import { UserRpositotyInterface } from '@/repositories/user-repository-interface';
-import { compare } from 'bcryptjs';
 import { InvalidCredentialsError } from './errors/invalid-credentials-errors';
 
 interface DeleteUserRequest {
