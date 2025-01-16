@@ -17,7 +17,7 @@ export async function getNotesById(
     const notes = await getNotesById.execute({userId: id });
     return reply
       .status(201)
-      .send({ notes: notes });
+      .send({ notes });
   } catch (error) {
     console.log(error);
     

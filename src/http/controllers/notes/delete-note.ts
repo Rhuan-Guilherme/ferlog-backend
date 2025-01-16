@@ -1,16 +1,24 @@
+import { makeDeleteNote } from '@/use-cases/factoryes/delete-note';
 import { makeGetNotes } from '@/use-cases/factoryes/get-notes';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { z } from 'zod';
 
-export async function getNotes(
+export async function deleteNote(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
+  const noteId = z.object({
+    id: z.string().uuid()
+  })
+
+  const { id } = noteId.parse(request.params)
+
   try {
-    const getNotes = makeGetNotes();
-    const notes = await getNotes.execute();
+    const getNotes = makeDeleteNote();
+    await getNotes.execute({noteId: id});
     return reply
       .status(200)
-      .send({ notes });
+      .send({ message: 'Note deleted' });
   } catch (error) {
     console.log(error);
     

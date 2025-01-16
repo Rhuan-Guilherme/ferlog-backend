@@ -35,5 +35,16 @@ export class PrismaNotesRepository implements NotesRepositoryInterface{
 
     return notes
   }
+
+  
+  async delete(noteId: string): Promise<Notes | null> {
+    const note = await prisma.notes.delete({ where: { id: noteId } });
+
+    if(!note){
+      return null
+    }
+
+    return note
+  }
   
 }
