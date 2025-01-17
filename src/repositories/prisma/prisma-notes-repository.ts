@@ -18,10 +18,13 @@ export class PrismaNotesRepository implements NotesRepositoryInterface{
     const notes = await prisma.notes.findMany({
       orderBy: {
         created_at: "desc"
+      },
+      include: {
+        user: true
       }
     })
 
-    if(!notes){
+    if(!notes || !notes.length){
       return null
     }
 
