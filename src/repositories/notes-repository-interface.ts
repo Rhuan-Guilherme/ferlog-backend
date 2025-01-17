@@ -5,4 +5,5 @@ export interface NotesRepositoryInterface{
   getNotes(): Promise<Notes[] | null>;
   getNotesById(userId: string): Promise<Notes[] | null>;
   delete(noteId: string): Promise<Notes | null>;
+  edit(data: Prisma.NotesUpdateInput, noteId: string): Promise<Notes | null>;
 }

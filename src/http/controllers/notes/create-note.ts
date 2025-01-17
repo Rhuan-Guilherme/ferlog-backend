@@ -16,7 +16,6 @@ export async function registerNote(
   });
 
   const { date,destinatario,n_ctrc,remetente,unidade,valor_ctrc } = userSchema.parse(request.body);  
-  console.log(date, destinatario, n_ctrc, unidade, valor_ctrc);
   
 
   try {

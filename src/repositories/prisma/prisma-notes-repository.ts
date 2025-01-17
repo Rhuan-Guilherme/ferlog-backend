@@ -3,6 +3,7 @@ import { NotesRepositoryInterface } from "../notes-repository-interface";
 import { prisma } from "@/lib/prisma";
 
 export class PrismaNotesRepository implements NotesRepositoryInterface{
+ 
   
   
   async createNote(data: Prisma.NotesCreateInput): Promise<Notes> {
@@ -14,7 +15,11 @@ export class PrismaNotesRepository implements NotesRepositoryInterface{
   }
 
   async getNotes(): Promise<Notes[] | null> {
-    const notes = await prisma.notes.findMany()
+    const notes = await prisma.notes.findMany({
+      orderBy: {
+        created_at: "desc"
+      }
+    })
 
     if(!notes){
       return null
@@ -43,6 +48,12 @@ export class PrismaNotesRepository implements NotesRepositoryInterface{
     if(!note){
       return null
     }
+
+    return note
+  }
+
+   async edit(data: Prisma.NotesCreateInput, noteId: string): Promise<Notes | null> {
+    const note = await prisma.notes.update({data, where: {id: noteId}})
 
     return note
   }

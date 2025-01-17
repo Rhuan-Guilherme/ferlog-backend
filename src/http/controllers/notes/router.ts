@@ -5,6 +5,7 @@ import { getNotes } from './get-notes';
 import { roleVerify } from '@/http/middlewares/role-verify';
 import { getNotesById } from './get-notes-by-id';
 import { deleteNote } from './delete-note';
+import { editNote } from './edit-notes';
 
 
 export async function NotesRoutes(app: FastifyInstance) {
@@ -12,4 +13,5 @@ export async function NotesRoutes(app: FastifyInstance) {
   app.get('/notes', { onRequest: [verifyJWT, roleVerify('ADMIN')]}, getNotes );
   app.get('/notes/:id', { onRequest: [verifyJWT]}, getNotesById );
   app.delete('/notesdelete/:id', { onRequest: [verifyJWT]}, deleteNote );
+  app.put('/notes/edit', { onRequest: [verifyJWT]}, editNote );
 }
