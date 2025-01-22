@@ -3,6 +3,28 @@ import { NotesRepositoryInterface } from "../notes-repository-interface";
 import { prisma } from "@/lib/prisma";
 
 export class PrismaNotesRepository implements NotesRepositoryInterface{
+  async getNotesByDate(dateFist: string, dateLast: string): Promise<Notes[] | null> {
+    const notes = await prisma.notes.findMany({
+      where: {
+        created_at: {
+          gte: new Date(dateFist),
+          lte: new Date(dateLast)
+        },
+      },
+      orderBy: {
+        created_at: "desc"
+      },
+      include: {
+        user: true
+      }
+    })
+
+    if(!notes ||!notes.length){
+      return null
+    }
+
+    return notes
+  }
  
   
   
